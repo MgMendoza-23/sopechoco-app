@@ -1,10 +1,13 @@
 import {
+  Animated,
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  TouchableWithoutFeedback,
+  View
 } from "react-native";
+
+import { useRef } from "react";
 
 type Props = {
   title: string;
@@ -23,22 +26,56 @@ export default function FoodCard({
   color,
   onPress,
 }: Props) {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.97,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+
+    onPress();
+  };
   return (
-    <TouchableOpacity
-      style={[styles.card, { borderLeftColor: color }]}
-      onPress={onPress}
+    <TouchableWithoutFeedback
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
     >
-      <Image source={image} style={styles.image} />
+      <Animated.View
+        style={[
+          styles.card,
+          {
+            borderLeftColor: color,
+            transform: [{ scale }],
+          },
+        ]}
+      >
+        <Image source={image} style={styles.image} />
 
-      <View style={styles.content}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
-      </View>
+        <View style={styles.content}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
+        </View>
 
-      <View style={[styles.priceContainer, { backgroundColor: color }]}>
-        <Text style={styles.price}>${price}</Text>
-      </View>
-    </TouchableOpacity>
+        <View
+          style={[
+            styles.priceContainer,
+            { backgroundColor: color },
+          ]}
+        >
+          <Text style={styles.price}>${price}</Text>
+        </View>
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -46,7 +83,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F2F2F2",
+    backgroundColor: "#f2f2f2",
     borderRadius: 20,
     padding: 15,
     marginBottom: 15,

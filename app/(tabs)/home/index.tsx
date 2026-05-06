@@ -67,25 +67,28 @@ export default function Menu() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#EDE0D4",
+    backgroundColor: "#f6e8db",
     padding: 15,
   },
 
   header: {
     marginBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#D6CCC2",
+    borderBottomColor: "#ad6620",
     paddingBottom: 10,
   },
 
   title: {
-    fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "BebasNeue_400Regular",
+    fontSize: 40,
+    color: "#221915",
+    letterSpacing: 5,
+    lineHeight: 46,
   },
 
   subtitle: {
-    fontSize: 14,
-    color: "#666",
+    fontSize: 18,
+    color: "#c1440e",
     marginTop: 2,
   },
 

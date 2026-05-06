@@ -67,15 +67,28 @@ export default function TacoCustomizer() {
       {/* 🔢 Cantidad */}
       {guiso && (
         <View style={styles.counter}>
-          <TouchableOpacity onPress={() => setCantidad(Math.max(1, cantidad - 1))}>
-            <Text style={styles.btn}>-</Text>
+
+          {/* ➖ */}
+          <TouchableOpacity
+            style={styles.counterBtn}
+            onPress={() => setCantidad(Math.max(1, cantidad - 1))}
+          >
+            <Text style={styles.counterText}>−</Text>
           </TouchableOpacity>
 
-          <Text style={styles.qty}>{cantidad}</Text>
+          {/* 🔢 */}
+          <View style={styles.qtyContainer}>
+            <Text style={styles.qty}>{cantidad}</Text>
+          </View>
 
-          <TouchableOpacity onPress={() => setCantidad(cantidad + 1)}>
-            <Text style={styles.btn}>+</Text>
+          {/* ➕ */}
+          <TouchableOpacity
+            style={styles.counterBtn}
+            onPress={() => setCantidad(cantidad + 1)}
+          >
+            <Text style={styles.counterText}>+</Text>
           </TouchableOpacity>
+
         </View>
       )}
 
@@ -119,8 +132,32 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 10,
-    gap: 20,
+    marginVertical: 20,
+    },
+    counterBtn: {
+    width: 45,
+    height: 45,
+    borderRadius: 25,
+    backgroundColor: "#f6b30acd",
+    justifyContent: "center",
+    alignItems: "center",
+
+    // sombra Android
+    elevation: 3,
+
+    // sombra iOS
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  counterText: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
   },
 
   btn: {
@@ -129,8 +166,14 @@ const styles = StyleSheet.create({
   },
 
   qty: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
+    color: "#333",
+  },
+    qtyContainer: {
+    marginHorizontal: 20,
+    minWidth: 50,
+    alignItems: "center",
   },
 
   addBtn: {
