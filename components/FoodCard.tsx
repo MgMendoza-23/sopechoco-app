@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 55,
-    height: 55,
+    width: 45,
+    height: 45,
     marginRight: 10,
   },
 
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
   priceContainer: {
     paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingVertical: 14,
     borderRadius: 12,
   },
 

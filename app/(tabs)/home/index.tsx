@@ -2,6 +2,7 @@ import FoodCard from "@/components/FoodCard";
 import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function Menu() {
   const router = useRouter();
   
@@ -33,7 +34,7 @@ export default function Menu() {
           title="Quesadillas"
           description="Con tu guiso favorito o combinado de 2"
           price={100}
-          image={require("../../../assets/images/android-icon-foreground.png")}
+          image={require("../../../assets/images/quesa.png")}
           color="#DC2626"
           onPress={() => router.push("/(tabs)/home/quesadilla")}
         />
@@ -67,7 +68,7 @@ export default function Menu() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f6e8db",
+    backgroundColor: "#f1b780",
     padding: 15,
   },
 

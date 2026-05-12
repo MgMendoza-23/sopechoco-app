@@ -17,10 +17,6 @@ export default function TipoSelector({
   return (
     <View style={styles.wrapper}>
 
-      <Text style={styles.title}>
-        ¿Cómo lo quieres?
-      </Text>
-
       <View style={styles.container}>
 
         {/* 1 GUISO */}
@@ -37,7 +33,7 @@ export default function TipoSelector({
               tipo === 1 && styles.activeText,
             ]}
           >
-            1 Guiso
+           De 1 Guiso
           </Text>
         </TouchableOpacity>
 
@@ -55,7 +51,7 @@ export default function TipoSelector({
               tipo === 2 && styles.activeText,
             ]}
           >
-            2 Guisos
+            De 2 Guisos
           </Text>
         </TouchableOpacity>
 
