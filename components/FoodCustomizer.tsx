@@ -1,4 +1,6 @@
 
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -7,18 +9,17 @@ import {
   View,
 } from "react-native";
 import styles from "../styles/FoodCustomizer.styles";
-
-import { useState } from "react";
 import GuisoSelector from "./GuisoSelector";
 import PedidoItem from "./PedidoItem";
 import TipoSelector from "./TipoSelector";
 
-import { guisos } from "../constants/guisos";
 import { useCart } from "../hooks/useCart";
 import { Guiso } from "../types/guiso";
 
+import { supabase } from "../utils/supabase";
 type Pedido = {
   id: string;
+  producto: "sope" | "quesadilla";
   tipo: 1 | 2;
   guisos: Guiso[];
 };
@@ -34,8 +35,11 @@ export default function FoodCustomizer({
   producto,
   image,
 }: Props) {
-  const { addToCart } = useCart();
+  const router = useRouter();
 
+  const { addToCart } = useCart();
+  const [guisos, setGuisos] =
+    useState<Guiso[]>([]);
   const [tipo, setTipo] =
     useState<1 | 2 | null>(null);
 
@@ -48,58 +52,92 @@ export default function FoodCustomizer({
   const [pedidos, setPedidos] =
     useState<Pedido[]>([]);
 
+   // =========================
+  // OBTENER GUISOS
+  // =========================
+
+
+  useEffect(() => {
+    getGuisos();
+  }, []);
+
+  const getGuisos = async () => {
+
+    const { data, error } =
+      await supabase
+        .from("guisos")
+        .select("*")
+        .eq("available", true);
+
+    if (error) {
+      console.log(
+        "ERROR GUISOS:",
+        error
+      );
+      return;
+    }
+
+    setGuisos(data || []);
+  };
+
   // ➕ agregar pedido
   const agregarPedido = () => {
+    
+    // 1 GUISO
     if (tipo === 1 && guiso1) {
+
+      const pedido: Pedido = {
+        id: Date.now().toString(),
+        producto,
+        tipo: 1,
+        guisos: [guiso1],
+      };
+
+      // carrito
+      addToCart(pedido);
+
+      // visual local
       setPedidos((prev) => [
         ...prev,
-        {
-          id: Date.now().toString(),
-          tipo: 1,
-          guisos: [guiso1],
-        },
+        pedido,
       ]);
     }
 
+    // 2 GUISOS
     if (
       tipo === 2 &&
       guiso1 &&
       guiso2
     ) {
+
+      const pedido: Pedido = {
+        id: Date.now().toString(),
+        producto,
+        tipo: 2,
+        guisos: [guiso1, guiso2],
+      };
+
+      // carrito
+      addToCart(pedido);
+
+      // visual local
       setPedidos((prev) => [
         ...prev,
-        {
-          id: Date.now().toString(),
-          tipo: 2,
-          guisos: [guiso1, guiso2],
-        },
+        pedido,
       ]);
     }
 
+    // reset
     setTipo(null);
     setGuiso1(null);
     setGuiso2(null);
   };
 
-  // ❌ eliminar pedido
+  // ❌ eliminar pedido visual
   const eliminarPedido = (id: string) => {
     setPedidos((prev) =>
       prev.filter((p) => p.id !== id)
     );
-  };
-
-  // 🛒 enviar carrito
-  const enviarAlCarrito = () => {
-    pedidos.forEach((p) =>
-      addToCart({
-        id: p.id,
-        producto: producto,
-        tipo: p.tipo,
-        guisos: p.guisos,
-      })
-    );
-
-    setPedidos([]);
   };
 
   return (
@@ -169,7 +207,7 @@ export default function FoodCustomizer({
           <View style={styles.resumeCard}>
             
             <Text style={styles.resumeTitle}>
-              Tu {title} es de:  
+              Tu {title} es de:
             </Text>
 
             <Text style={styles.resumeText}>
@@ -177,6 +215,7 @@ export default function FoodCustomizer({
                 ? guiso1?.name
                 : `${guiso1?.name} + ${guiso2?.name}`}
             </Text>
+
             <TouchableOpacity
               style={styles.addBtn}
               onPress={agregarPedido}
@@ -185,6 +224,7 @@ export default function FoodCustomizer({
                 Agregar {title}
               </Text>
             </TouchableOpacity>
+
           </View>
         )}
       </View>
@@ -192,33 +232,40 @@ export default function FoodCustomizer({
       {/* PEDIDOS */}
       {pedidos.length > 0 && (
         <View style={styles.ordersSection}>
-          
-          <Text style={styles.sectionTitle}>
-            Tus pedidos
-          </Text>
 
-          {pedidos.map((p) => (
-            <PedidoItem
-              key={p.id}
-              text={`${title} de ${p.guisos
-                .map((g) => g.name)
-                .join(" + ")}`}
-              onDelete={() =>
-                eliminarPedido(p.id)
-              }
-            />
-          ))}
-
-          {/* BOTÓN FINAL */}
-          <TouchableOpacity
-            style={styles.cartBtn}
-            onPress={enviarAlCarrito}
-          >
-            <Text style={styles.cartBtnText}>
-              Agregar al carrito (
-              {pedidos.length})
+          <View style={styles.ordersCard}>
+            
+            {/* TITLE */}
+            <Text style={styles.sectionTitle}>
+              Tus pedidos
             </Text>
-          </TouchableOpacity>
+
+            {/* ITEMS */}
+            {pedidos.map((p) => (
+              <PedidoItem
+                key={p.id}
+                text={`${title} de ${p.guisos
+                  .map((g) => g.name)
+                  .join(" + ")}`}
+                onDelete={() =>
+                  eliminarPedido(p.id)
+                }
+              />
+            ))}
+
+            {/* BOTÓN */}
+            <TouchableOpacity
+              style={styles.cartBtn}
+              onPress={() =>
+                router.push("/(tabs)/cart")
+              }
+            >
+              <Text style={styles.cartBtnText}>
+                Ir al carrito
+              </Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
       )}
     </ScrollView>

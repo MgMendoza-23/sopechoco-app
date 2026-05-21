@@ -23,7 +23,7 @@ export default function Menu() {
 
         <FoodCard
           title="Sopes"
-          description=" · Un solo guiso o combinado de 2"
+          description="De un solo guiso o combinado de 2 guisos"
           price={105}
           image={require("../../../assets/images/sope1.png")}
           color="#F97316"
@@ -32,7 +32,7 @@ export default function Menu() {
 
         <FoodCard
           title="Quesadillas"
-          description="Con tu guiso favorito o combinado de 2"
+          description="Con tu guiso favorito o combinado de 2 guisos"
           price={100}
           image={require("../../../assets/images/quesa.png")}
           color="#DC2626"
@@ -40,10 +40,10 @@ export default function Menu() {
         />
 
         <FoodCard
-          title="Taco"
+          title="Tacos"
           description="Elige tu guiso al momento"
           price={22}
-          image={require("../../../assets/images/android-icon-foreground.png")}
+          image={require("../../../assets/images/tac.png")}
           color="#F59E0B"
           onPress={() => router.push("/(tabs)/home/taco") }
         />
@@ -68,7 +68,7 @@ export default function Menu() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f1b780",
+    backgroundColor: "#efe1d0",
     padding: 15,
   },
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     fontSize: 18,
-    color: "#c1440e",
+    color: "#ED7718",
     marginTop: 2,
   },
 

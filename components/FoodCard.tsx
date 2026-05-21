@@ -88,12 +88,15 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     borderLeftWidth: 6,
+    borderWidth:0.7,
+    borderColor:"#F5C842",
   },
 
   image: {
-    width: 45,
-    height: 45,
-    marginRight: 10,
+    width: 70,
+    height: 70,
+    marginRight: 5,
+    resizeMode:"contain"
   },
 
   content: {

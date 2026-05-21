@@ -1,6 +1,9 @@
 export type Guiso = {
-  id: number;
+  id: string;
+
   name: string;
-  price: number;
-  icon:string;
+
+  icon: string;
+
+  available: boolean;
 };

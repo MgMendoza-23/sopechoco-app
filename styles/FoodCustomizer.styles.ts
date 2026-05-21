@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#FDF6EE",
   },
 
   // HERO
   hero: {
-    backgroundColor: "#fff",
+    backgroundColor: "#D94F00",
 
     flexDirection: "row",
     alignItems: "center",
@@ -34,12 +34,12 @@ export default StyleSheet.create({
   heroTitle: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "#111",
+    color: "#ffffff",
   },
 
   heroSubtitle: {
     marginTop: 8,
-    color: "#666",
+    color: "#ffffff",
     fontSize: 16,
   },
 
@@ -55,7 +55,8 @@ export default StyleSheet.create({
     marginHorizontal: 15,
     borderRadius: 26,
     padding: 20,
-
+    borderWidth:0.7,
+    borderColor:"#F5C842",
     elevation: 2,
   },
 
@@ -76,27 +77,21 @@ export default StyleSheet.create({
 
   resumeTitle: {
     fontWeight: "bold",
-    fontSize: 18,
-    color: "#111",
+    fontSize: 21,
+    color: "#000",
   },
 
   resumeText: {
     marginTop: 6,
-    color: "#555",
+    color: "#2C1200",
     fontSize: 16,
   },
 
-  resumePrice: {
-    marginTop: 12,
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#E63946",
-  },
 
   // BOTÓN AGREGAR
   addBtn: {
     marginTop: 18,
-    backgroundColor: "#E63946",
+    backgroundColor: "#D94F00",
     paddingVertical: 15,
     borderRadius: 18,
     alignItems: "center",
@@ -110,23 +105,46 @@ export default StyleSheet.create({
 
   // PEDIDOS
   ordersSection: {
-    marginTop: 22,
+    marginTop: 24,
     paddingHorizontal: 15,
-    paddingBottom: 30,
+    paddingBottom: 40,
   },
 
   // BOTÓN CARRITO
   cartBtn: {
-    backgroundColor: "#111",
-    paddingVertical: 18,
-    borderRadius: 22,
-    alignItems: "center",
-    marginTop: 20,
+  backgroundColor: "#D94F00",
+
+  paddingVertical: 18,
+
+  borderRadius: 22,
+
+  alignItems: "center",
+
+  marginTop: 18,
+
+  shadowColor: "#D94F00",
+  shadowOpacity: 0.2,
+  shadowRadius: 8,
+  shadowOffset: {
+    width: 0,
+    height: 4,
+  },
+
+  elevation: 4,
   },
 
   cartBtnText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
+  color: "#fff",
+  fontWeight: "bold",
+  fontSize: 17,
+},
+ordersCard: {
+  backgroundColor: "#fff",
+  borderRadius: 28,
+  padding: 18,
+  borderWidth: 1,
+  borderColor: "#F5D7B2",
+  elevation: 2,
+},
+
 });
